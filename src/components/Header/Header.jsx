@@ -1,13 +1,21 @@
-import { useRef,useContext } from 'react';
-import Context from '../Context/Context.jsx';
+import { useRef, useContext } from "react";
+import Context from "../Context/Context.jsx";
 
-import CartModal from '../CartModal/CartModal.jsx';
+import CartModal from "../CartModal/CartModal.jsx";
 
 export default function Header() {
-  const {cart,onUpdateCartItemQuantity} = useContext(Context)
+  const { cart, onUpdateCartItemQuantity } = useContext(Context);
   const modal = useRef();
 
   const cartQuantity = cart.items.length;
+
+
+    /*
+     @method: handleOpenCartClick.
+     @return: Event; 
+     função para fazer o carrinho aparecer
+    
+    */ 
 
   function handleOpenCartClick() {
     modal.current.open();
@@ -26,13 +34,17 @@ export default function Header() {
 
   return (
     <>
-      <CartModal
-        ref={modal}
-        cartItems={cart.items}
-        onUpdateCartItemQuantity={onUpdateCartItemQuantity}
-        title="Your Cart"
-        actions={modalActions}
-      />
+      <Context.Provider
+        value={{
+          ref: modal,
+          cartItems: cart.items,
+          onUpdateCartItemQuantity: onUpdateCartItemQuantity,
+          title: "Your Cart",
+          actions: modalActions,
+        }}
+      >
+        <CartModal />
+      </Context.Provider>
       <header id="main-header">
         <div id="main-title">
           <img src="logo.png" alt="Elegant model" />
