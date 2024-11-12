@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import Context from "../Context/Context.jsx";
-export default function Product({}) {
-  const { id, image, title, price, description, onAddToCart } =
-    useContext(Context);
+import {Context} from "../Context/Context";
+export default function Product({id,image,title,price,description}) {
+  const {addItem} =useContext(Context)
   return (
     <article className="product">
       <img src={image} alt={title} />
@@ -13,7 +12,7 @@ export default function Product({}) {
           <p>{description}</p>
         </div>
         <p className="product-actions">
-          <button onClick={() => onAddToCart(id)}>Add to Cart</button>
+          <button onClick={() => addItem(id)}>Add to Cart</button>
         </p>
       </div>
     </article>

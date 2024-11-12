@@ -1,13 +1,13 @@
 import { useRef, useContext } from "react";
-import Context from "../Context/Context.jsx";
+import {Context} from "../Context/Context.jsx";
 
 import CartModal from "../CartModal/CartModal.jsx";
 
 export default function Header() {
-  const { cart, onUpdateCartItemQuantity } = useContext(Context);
+  const { items } = useContext(Context);
   const modal = useRef();
 
-  const cartQuantity = cart.items.length;
+  const cartQuantity = items.length;
 
 
     /*
@@ -34,17 +34,12 @@ export default function Header() {
 
   return (
     <>
-      <Context.Provider
-        value={{
-          ref: modal,
-          cartItems: cart.items,
-          onUpdateCartItemQuantity: onUpdateCartItemQuantity,
-          title: "Your Cart",
-          actions: modalActions,
-        }}
-      >
-        <CartModal />
-      </Context.Provider>
+  
+        <CartModal  
+          ref={ modal }
+          title={ "Your Cart"}
+          actions = {modalActions} 
+          />
       <header id="main-header">
         <div id="main-title">
           <img src="logo.png" alt="Elegant model" />
